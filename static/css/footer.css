@@ -1,0 +1,88 @@
+footer{
+    min-height: 400px;
+
+    background-image: url('This must be changed in style');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;
+
+    display: flex;
+
+    color: whitesmoke;
+}
+
+.footer-description
+{
+    flex: 1;
+    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-description span
+{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.footer-description p
+{
+    font-size: 24px;
+    text-indent: 32px;
+    text-wrap-mode: wrap;
+}
+
+.footer-links
+{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px 100px;
+}
+
+.footer-sitelinks
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-sitelinks div
+{
+    padding: 10px;
+    border-width: 3px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: whitesmoke;
+}
+
+.footer-sitelinks a
+{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.footer-medialinks
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-medialinks img
+{
+    height: 64px;
+    width: auto;
+}
+
+.footer-license{
+    text-align: center;
+}
+
+.footer-license span{
+    /* text-shadow: -1px 1px 1px rgb(245, 245, 245, 0.5), 0px 1px 1px rgb(245, 245, 245, 0.5), 1px 1px 1px rgb(245, 245, 245, 0.5), 1px 0px 1px rgb(245, 245, 245, 0.5), 1px -1px 1px rgb(245, 245, 245, 0.5), 0px -1px 1px rgb(245, 245, 245, 0.5), -1px -1px 1px rgb(245, 245, 245, 0.5), -1px 0px 1px rgb(245, 245, 245, 0.5); */
+    /* text-shadow: -1px 1px 1px black, 0px 1px 1px black, 1px 1px 1px black, 1px 0px 1px black, 1px -1px 1px black, 0px -1px 1px black, -1px -1px 1px black, -1px 0px 1px black; */
+    text-decoration: underline;
+}

@@ -1,0 +1,83 @@
+header{
+    color: whitesmoke;
+    background-color: #003DE6;
+
+    position: sticky;
+    top: 0;
+}
+
+.menu-links
+{
+    display: flex;
+    justify-content: center;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu-links-link
+{
+    height: auto;
+    width: auto;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.menu-links-link:hover
+{
+    color: white;
+    background-color: #1A57FF;
+}
+
+.menu-links-contact
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: auto;
+    width: auto;
+    margin-left: 25px;
+    margin-right: 25px;
+
+    font-size: 18px;
+}
+
+.menu-links-logo
+{
+    margin-left: 25px;
+    margin-right: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.menu-links-logo img
+{
+    height: 60px;
+    width: auto;
+}
+
+.menu-breadcramps{
+    color: whitesmoke;
+    background-color: #0030B3;
+    
+    padding: 5px 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.menu-breadcramps *{
+    color: whitesmoke;
+}
+
+.menu-breadcramps a:hover{
+    text-decoration: underline;
+}
+
