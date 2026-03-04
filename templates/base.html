@@ -13,11 +13,11 @@
         <header>
             <nav class="menu-links">
                 <li class="menu-links-logo"><img src="{% static 'img/logo.png' %}" alt=""></li>
-                <a href="{% url 'core index' %}"><li class="menu-links-link">INDEX</li></a>
-                <a href="{% url 'schedule index' %}"><li class="menu-links-link">SCHEDULE</li></a>
-                <a href="{% url 'teachers index' %}"><li class="menu-links-link">TEACHERS</li></a>
-                <a href="{% url 'groups index' %}"><li class="menu-links-link">GROUPS</li></a>
-                <a href="{% url 'subjects index' %}"><li class="menu-links-link">SUBJECTS</li></a>
+                <a href="{% url 'index' %}"><li class="menu-links-link">INDEX</li></a>
+                <a href="{% url 'schedule' %}"><li class="menu-links-link">SCHEDULE</li></a>
+                <a href="{% url 'teachers' %}"><li class="menu-links-link">TEACHERS</li></a>
+                <a href="{% url 'groups' %}"><li class="menu-links-link">GROUPS</li></a>
+                <a href="{% url 'subjects' %}"><li class="menu-links-link">SUBJECTS</li></a>
                 <li class="menu-links-contact">
                     <span>alesboyarevich@gmail.com</span>
                     <hr>
@@ -26,11 +26,11 @@
             </nav>
             <hr>
             <nav class="menu-breadcramps">
-                <a href="{% url 'core index' %}">wbwbqwbq</a>
+                <a href="{% url 'index' %}">wbwbqwbq</a>
                 <span>></span>
-                <a href="{% url 'core index' %}">wbwb</a>
+                <a href="{% url 'index' %}">wbwb</a>
                 <span>></span>
-                <a href="{% url 'core index' %}">bwbwb</a>
+                <a href="{% url 'index' %}">bwbwb</a>
             </nav>
         </header>
         {% block main %}{% endblock %}
@@ -42,11 +42,11 @@
             </div>
             <div class="footer-links">
                 <div class="footer-sitelinks">
-                    <a href="{% url 'core index' %}"><div>INDEX</div></a>
-                    <a href="{% url 'schedule index' %}"><div>SCHEDULE</div></a>
-                    <a href="{% url 'teachers index' %}"><div>TEACHERS</div></a>
-                    <a href="{% url 'groups index' %}"><div>GROUPS</div></a>
-                    <a href="{% url 'subjects index' %}"><div>SUBJECTS</div></a>
+                    <a href="{% url 'index' %}"><div>INDEX</div></a>
+                    <a href="{% url 'schedule' %}"><div>SCHEDULE</div></a>
+                    <a href="{% url 'teachers' %}"><div>TEACHERS</div></a>
+                    <a href="{% url 'groups' %}"><div>GROUPS</div></a>
+                    <a href="{% url 'subjects' %}"><div>SUBJECTS</div></a>
                 </div>
                 <hr>
                 <div class="footer-medialinks">

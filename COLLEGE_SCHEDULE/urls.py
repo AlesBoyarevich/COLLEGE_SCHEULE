@@ -16,17 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from teachers.urls import urlpatterns as teacher_urls
 from core.urls import urlpatterns as core_urls
 from schedule.urls import urlpatterns as schedule_urls
-from groups.urls import urlpatterns as groups_urls
-from subjects.urls import urlpatterns as subjects_urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(core_urls)),
-    path('schedule/', include(schedule_urls)),
-    path('teachers/', include(teacher_urls)),
-    path('groups/', include(groups_urls)),
-    path('subjects/', include(subjects_urls)),
+    path('', include(schedule_urls)),
 ]
