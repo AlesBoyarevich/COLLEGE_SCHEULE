@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/groups/form.css' %}">
+{% endblock %}
+{% block main %}
+<main>
+    <h1 class="form-title">{{ headline }}</h1>
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-field">
+            <span style="color: red;">{{ field.errors }}</span>
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div class="form-button_block">
+            <a class="form-delete" href="{% url 'groups delete' object.name %}">Delete</a>
+            <button class="form-submit" type="submit">submit</button>
+        </div>
+    </form>
+</main>
+{% endblock %}

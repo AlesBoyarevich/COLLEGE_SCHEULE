@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/teachers/list.css' %}">
+{% endblock%}
+{% block main %}
+    <main>
+        <div class="topbar">
+            <h1 class="topbar-title">Teachers</h1>
+            <a href="{% url 'teachers create' %}"><button class="list-button">New +</button></a>
+        </div>
+        <div class="list">
+            {% for teacher in teachers %}
+            <div class="list-item">
+                <div class="list-item-top" style="background-image: url('{{ teacher.image.url }}');">
+                    <h2>{{teacher.lastname}} {{ teacher.name }} {{ teacher.surname }}</h2>
+                </div>
+                <div class="list-item-bottom">
+                    <a href="{% url 'teachers edit' teacher.id %}"><img src="{% static 'img/edit.png' %}" alt=""></a>
+                    <a href="{% url 'teachers delete' teacher.id %}"><img src="{% static 'img/bin.png' %}" alt=""></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

@@ -48,6 +48,7 @@ footer{
 {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .footer-sitelinks div
@@ -69,6 +70,7 @@ footer{
 {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .footer-medialinks img

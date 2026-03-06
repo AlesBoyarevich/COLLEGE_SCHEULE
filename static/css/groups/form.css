@@ -1,0 +1,29 @@
+.form-button_block{
+    display: flex;
+    flex-direction: row;
+    gap: 50px
+}
+
+.form-button_block button{
+    flex-grow: 1;
+}
+
+.form-button_block a{
+    display: block;
+    flex-grow: 1;
+}
+
+.form-delete{
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 32px;
+
+    background-color: whitesmoke;
+    color: #1A57FF;
+
+    border-color: #1A57FF;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 32px;
+}

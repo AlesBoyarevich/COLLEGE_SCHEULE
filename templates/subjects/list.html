@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/subjects/list.css' %}">
+{% endblock %}
+{% block main %}
+<main>
+    <div class="topbar">
+        <h1 class="topbar-title">Subjects</h1>
+        <a href="{% url 'subjects create' %}"><button class="list-button">New +</button></a>
+    </div>
+    <ul class="list">
+        {% for subject in subjects %}
+        <hr class="list-line">
+        <li class="list-row">
+            <span>{{ subject.title }}</span>
+            <div class="list-row-manage">
+                <a href="{% url 'subjects edit' subject.id %}" class="list-row-manage-edit">EDIT</a>
+                <a href="{% url 'subjects delete' subject.id %}" class="list-row-manage-delete">DELETE</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}

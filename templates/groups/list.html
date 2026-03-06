@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/groups/list.css' %}">
+{% endblock %}
+{% block main%}
+    <main>
+        <div class="topbar">
+            <h1 class="topbar-title">Groups</h1>
+            <a href="{% url 'groups create' %}"><button class="list-button">New +</button></a>
+        </div>
+        <div class="table">
+            {% for course, codes in groups.items %}
+            <div class="table-column">
+                <span class="table-course">{{ course }}К</span>
+                <div class="">
+                    {% for code in codes %}
+                        <div><a class="table-column-link" href="{% url 'groups edit' course|add:'К'|add:code %}">{{ code }}</a></div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

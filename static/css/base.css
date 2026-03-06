@@ -12,6 +12,17 @@ hr{
 	padding: 0;
 }
 
+.base-title{
+    font-size: 64px;
+    font-weight: bold;
+    color: #1A57FF;
+    margin-bottom: 50px;
+}
+
 main{
-    padding: 2% 5%;
+    margin: 5% 10%;
+    padding: 5% 10%;
+    box-shadow: 5px 5px 20px black;
+    border-radius: 36px;
+    background-color: white;
 }

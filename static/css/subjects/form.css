@@ -1,0 +1,42 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.form-hadline
+{
+    font-size: 64px;
+    font-weight: bold;
+    color: #1A57FF;
+    margin-bottom: 50px;
+}
+
+.form div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+
+    color: black;
+}
+
+
+
+.form-submit{
+    font-size: 32px;
+    font-weight: bold;
+    padding: 32px;
+
+    background-color: #1A57FF;
+    color: whitesmoke;
+
+    border-color: none;
+    border-width: 0;
+    border-radius: 32px;
+}
