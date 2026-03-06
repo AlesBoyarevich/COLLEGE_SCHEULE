@@ -33,6 +33,11 @@ header{
     background-color: #1A57FF;
 }
 
+.menu-links-link-active{
+    color: white;
+    background-color: #1A57FF;
+}
+
 .menu-links-contact
 {
     display: flex;

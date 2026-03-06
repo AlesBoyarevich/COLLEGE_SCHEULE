@@ -1,29 +1,32 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, DetailView, CreateView, ListView, DeleteView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, DeleteView, UpdateView
 from . import forms
 from . import models
+from utils import mixins
 
 # Teachers
-class Teachers(ListView):
+class Teachers(mixins.TeachersMixin, ListView):
     template_name = 'teachers/list.html'
     model = forms.Teacher
     context_object_name = 'teachers'
 
-class TeachersCreate(CreateView):
+class TeachersCreate(mixins.TeachersMixin, CreateView):
     template_name = 'form.html'
     model = models.Teacher
     form_class = forms.TeacherCreateForm
     success_url = reverse_lazy('teachers')
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             headline='TEACHERS CREATE FORM'
             )
+        context['breadcramps']['create'] = reverse_lazy('teachers create')
         return context
 
-class TeachersDelete(DeleteView):
+class TeachersDelete(mixins.TeachersMixin, DeleteView):
     template_name = 'delete.html'
     model = models.Teacher
     success_url = reverse_lazy('teachers')
@@ -37,30 +40,36 @@ class TeachersDelete(DeleteView):
             object_name=f'{context_object.lastname} {context_object.name} {context_object.surname}',
             canel_url='teachers',
             )
+        context['breadcramps']['delete'] = reverse_lazy('teachers delete', kwargs={'id': context_object.id})
+        context['breadcramps'][str.join(' ', [context_object.lastname, context_object.name, context_object.surname])] = context['breadcramps']['delete']
         return context
 
-class TeachersEdit(UpdateView):
+class TeachersEdit(mixins.TeachersMixin, UpdateView):
     template_name = 'form.html'
     model = models.Teacher
     pk_url_kwarg = 'id'
     form_class = forms.TeacherCreateForm
     success_url = reverse_lazy('teachers')
+    context_object_name = 'teacher'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             headline='TEACHERS EDIT FORM'
             )
+        context_object = context[self.context_object_name]
+        context['breadcramps']['edit'] = reverse_lazy('teachers edit', kwargs={'id': context_object.id})
+        context['breadcramps'][str.join(' ', [context_object.lastname, context_object.name, context_object.surname])] = context['breadcramps']['edit']
         return context
         
 
 # Subjects
-class Subjects(ListView):
+class Subjects(mixins.SubjectsMixin, ListView):
     template_name = 'subjects/list.html'
     model = models.Subject
     context_object_name = 'subjects'
 
-class SubjectsCreate(CreateView):
+class SubjectsCreate(mixins.SubjectsMixin, CreateView):
     template_name = 'form.html'
     model = models.Subject
     form_class = forms.SubjectCreateForm
@@ -71,9 +80,10 @@ class SubjectsCreate(CreateView):
         context.update(
             headline='SUBJECT CREATE FORM'
             )
+        context['breadcramps']['create'] = reverse_lazy('subjects create')
         return context
 
-class SubjectsDelete(DeleteView):
+class SubjectsDelete(mixins.SubjectsMixin, DeleteView):
     template_name = 'delete.html'
     model = models.Subject
     success_url = reverse_lazy('subjects')
@@ -82,29 +92,36 @@ class SubjectsDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        obj = context[self.context_object_name]
         context.update(
-            object_name=context[self.context_object_name].title,
+            object_name=obj.title,
             canel_url='subjects',
             )
+        context['breadcramps']['delete'] = reverse_lazy('subjects delete', kwargs={'id': obj.id})
+        context['breadcramps'][obj.title] = context['breadcramps']['delete']
         return context
     
-class SubjectsEdit(UpdateView):
+class SubjectsEdit(mixins.SubjectsMixin, UpdateView):
     template_name = 'form.html'
     model = models.Subject
     pk_url_kwarg = 'id'
     form_class = forms.SubjectCreateForm
     success_url = reverse_lazy('subjects')
+    context_object_name = 'subject'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(
             headline='SUBJECT EDIT FORM'
             )
+        obj = context[self.context_object_name]
+        context['breadcramps']['edit'] = reverse_lazy('subjects edit', kwargs={'id': obj.id})
+        context['breadcramps'][obj.title] = context['breadcramps']['edit']
         return context
 
 
 # Groups
-class Groups(ListView):
+class Groups(mixins.GroupsMixin, ListView):
     template_name = 'groups/list.html'
     context_object_name = 'groups'
 
@@ -120,7 +137,7 @@ class Groups(ListView):
 
         return group_dict
     
-class GroupsCreate(CreateView):
+class GroupsCreate(mixins.GroupsMixin, CreateView):
     template_name = 'form.html'
     model = models.Group
     form_class = forms.GroupCreateForm
@@ -131,13 +148,15 @@ class GroupsCreate(CreateView):
         context.update(
             headline='GROUP CREATE FORM'
             )
+        context['breadcramps']['create'] = reverse_lazy('groups create')
         return context
     
-class GroupsEdit(UpdateView):
+class GroupsEdit(mixins.GroupsMixin, UpdateView):
     template_name = 'groups/form.html'
     model = models.Group
     form_class = forms.GroupCreateForm
     success_url = reverse_lazy('groups')
+    context_object_name = 'group'
 
 
     def get_object(self):
@@ -145,12 +164,15 @@ class GroupsEdit(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        obj = context[self.context_object_name]
         context.update(
             headline='GROUP EDIT FORM'
             )
+        context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
+        context['breadcramps'][obj.name] = context['breadcramps']['edit']
         return context
     
-class GroupsDelete(DeleteView):
+class GroupsDelete(mixins.GroupsMixin, DeleteView):
     template_name = 'delete.html'
     success_url = reverse_lazy('groups')
     context_object_name = 'group'
@@ -160,15 +182,19 @@ class GroupsDelete(DeleteView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        obj = context[self.context_object_name]
         context.update(
             canel_url='groups',
-            object_name=f'{context[self.context_object_name].name}'
+            object_name=f'{obj.name}'
         )
+        context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
+        context['breadcramps']['delete'] = reverse_lazy('groups delete', kwargs={'group_name': obj.name})
+        context['breadcramps'][obj.name] = context['breadcramps']['delete']
         return context
 
 
 # Schedule
-class Schedule(TemplateView):
+class Schedule(mixins.ScheduleMixin, TemplateView):
     template_name = 'schedule.html'
 
 

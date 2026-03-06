@@ -1,4 +1,5 @@
 {% load static %}
+{% load menu_tags %}
 <html>
     <head>
         <meta charset="utf-8">
@@ -14,24 +15,25 @@
         <header>
             <nav class="menu-links">
                 <li class="menu-links-logo"><img src="{% static 'img/logo.png' %}" alt=""></li>
-                <a href="{% url 'index' %}"><li class="menu-links-link">INDEX</li></a>
-                <a href="{% url 'schedule' %}"><li class="menu-links-link">SCHEDULE</li></a>
-                <a href="{% url 'teachers' %}"><li class="menu-links-link">TEACHERS</li></a>
-                <a href="{% url 'groups' %}"><li class="menu-links-link">GROUPS</li></a>
-                <a href="{% url 'subjects' %}"><li class="menu-links-link">SUBJECTS</li></a>
+                <a href="{% url 'index' %}"><li class="menu-links-link {% active 'index' %}">INDEX</li></a>
+                <a href="{% url 'schedule' %}"><li class="menu-links-link {% active 'schedule' %}">SCHEDULE</li></a>
+                <a href="{% url 'teachers' %}"><li class="menu-links-link {% active 'teachers' %}">TEACHERS</li></a>
+                <a href="{% url 'groups' %}"><li class="menu-links-link {% active 'groups' %}">GROUPS</li></a>
+                <a href="{% url 'subjects' %}"><li class="menu-links-link {% active 'subjects' %}">SUBJECTS</li></a>
                 <li class="menu-links-contact">
-                    <span>alesboyarevich@gmail.com</span>
+                    <span>{{ email }}</span>
                     <hr>
-                    <span>+375 25 500 58 93</span>
+                    <span>{{ phone }}</span>
                 </li>
             </nav>
             <hr>
             <nav class="menu-breadcramps">
-                <a href="{% url 'index' %}">wbwbqwbq</a>
+                {% for name, path in breadcramps.items %}
+                <a href="{{ path }}">{{ name }}</a>
+                {% if not forloop.last %}
                 <span>></span>
-                <a href="{% url 'index' %}">wbwb</a>
-                <span>></span>
-                <a href="{% url 'index' %}">bwbwb</a>
+                {% endif %}
+                {% endfor %}
             </nav>
         </header>
         {% block main %}{% endblock %}
@@ -51,14 +53,14 @@
                 </div>
                 <hr>
                 <div class="footer-medialinks">
-                    <a href=""><img src="{% static 'img/telegram.png' %}" alt=""></a>
-                    <a href=""><img src="{% static 'img/social-media.png' %}" alt=""></a>
-                    <a href=""><img src="{% static 'img/youtube.png' %}" alt=""></a>
-                    <a href=""><img src="{% static 'img/vkontakte.png' %}" alt=""></a>
+                    <a href="{{ social_telegram }}"><img src="{% static 'img/telegram.png' %}" alt=""></a>
+                    <a href="{{ social_instagram }}"><img src="{% static 'img/social-media.png' %}" alt=""></a>
+                    <a href="{{ social_youtube }}"><img src="{% static 'img/youtube.png' %}" alt=""></a>
+                    <a href="{{ social_wk }}"><img src="{% static 'img/vkontakte.png' %}" alt=""></a>
                 </div>
                 <hr>
                 <div class="footer-license">
-                    <span>Copyright (c) 2026 'MRC schedual' by Ales Boyarevich. Licensed under the MIT License.</span>
+                    <span>{{ license }}</span>
                 </div>
             </div>
         </footer>
