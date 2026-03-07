@@ -3,8 +3,6 @@ from copy import copy
 
 
 class BaseMixin:
-    active:str = 'not set'
-    breadcramps:dict[str:str] = {'not set': ...}
     extra_context = {
         'email': 'alesboyarevich@gmail.com',
         'phone': '+375 25 500 58 93',
@@ -14,6 +12,9 @@ class BaseMixin:
         'social_youtube': 'https://www.youtube.com/@user-jw9pb7kx1f',
         'social_wk': 'https://vk.com/offmrc',
     }
+
+    active:str = 'not set'
+    breadcramps:dict[str:str] = {'not set': ...}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

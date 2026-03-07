@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.http import request, HttpResponse, HttpResponseRedirect, Http404
-from django.views.generic import View, TemplateView, FormView, CreateView, RedirectView
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, FormView, CreateView, RedirectView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
@@ -31,6 +30,7 @@ class Login(mixins.CoreMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['headline'] = 'LOGIN FORM'
+        context['breadcramps'] = {'log in': reverse_lazy('login')}
         return context
 
     def post(self, request, *args, **kwargs):
@@ -52,6 +52,7 @@ class Signin(mixins.CoreMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['headline'] = 'SIGN IN FORM'
+        context['breadcramps'] = {'log in': reverse_lazy('login'), 'sign in': 'signin'}
         return context
     
     def form_valid(self, form):

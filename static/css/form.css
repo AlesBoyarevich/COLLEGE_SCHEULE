@@ -26,6 +26,12 @@
     color: black;
 }
 
+.form-subhadline{
+    font-size: 32px;
+    font-weight: bold;
+    color: #1A57FF;
+}
+
 .form-name{
     font-size: 24px;
     padding: 24px;

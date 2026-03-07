@@ -5,7 +5,7 @@
 {% endblock %}
 {% block main %}
 <main>
-    <h1 class="form-title">{{ headline }}</h1>
+    <h1 class="form-title">{{ headline }}<br><span class="form-subhadline">of {{ object_name }}</span></h1>
     <form class="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}

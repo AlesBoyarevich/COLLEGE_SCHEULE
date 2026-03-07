@@ -1,17 +1,18 @@
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from . import models
 from utils import mixins
 
 # Teachers
-class Teachers(mixins.TeachersMixin, ListView):
+class Teachers(LoginRequiredMixin, mixins.TeachersMixin, ListView):
     template_name = 'teachers/list.html'
     model = forms.Teacher
     context_object_name = 'teachers'
 
-class TeachersCreate(mixins.TeachersMixin, CreateView):
+class TeachersCreate(LoginRequiredMixin, mixins.TeachersMixin, CreateView):
     template_name = 'form.html'
     model = models.Teacher
     form_class = forms.TeacherCreateForm
@@ -26,7 +27,7 @@ class TeachersCreate(mixins.TeachersMixin, CreateView):
         context['breadcramps']['create'] = reverse_lazy('teachers create')
         return context
 
-class TeachersDelete(mixins.TeachersMixin, DeleteView):
+class TeachersDelete(LoginRequiredMixin, mixins.TeachersMixin, DeleteView):
     template_name = 'delete.html'
     model = models.Teacher
     success_url = reverse_lazy('teachers')
@@ -44,7 +45,7 @@ class TeachersDelete(mixins.TeachersMixin, DeleteView):
         context['breadcramps'][str.join(' ', [context_object.lastname, context_object.name, context_object.surname])] = context['breadcramps']['delete']
         return context
 
-class TeachersEdit(mixins.TeachersMixin, UpdateView):
+class TeachersEdit(LoginRequiredMixin, mixins.TeachersMixin, UpdateView):
     template_name = 'form.html'
     model = models.Teacher
     pk_url_kwarg = 'id'
@@ -54,22 +55,24 @@ class TeachersEdit(mixins.TeachersMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            headline='TEACHERS EDIT FORM'
-            )
         context_object = context[self.context_object_name]
+        context_object_fullname = str.join(' ', [context_object.lastname, context_object.name, context_object.surname])
+        context.update(
+            headline='TEACHERS EDIT FORM',
+            object_name=context_object_fullname,
+            )
         context['breadcramps']['edit'] = reverse_lazy('teachers edit', kwargs={'id': context_object.id})
-        context['breadcramps'][str.join(' ', [context_object.lastname, context_object.name, context_object.surname])] = context['breadcramps']['edit']
+        context['breadcramps'][context_object_fullname] = context['breadcramps']['edit']
         return context
         
 
 # Subjects
-class Subjects(mixins.SubjectsMixin, ListView):
+class Subjects(LoginRequiredMixin, mixins.SubjectsMixin, ListView):
     template_name = 'subjects/list.html'
     model = models.Subject
     context_object_name = 'subjects'
 
-class SubjectsCreate(mixins.SubjectsMixin, CreateView):
+class SubjectsCreate(LoginRequiredMixin, mixins.SubjectsMixin, CreateView):
     template_name = 'form.html'
     model = models.Subject
     form_class = forms.SubjectCreateForm
@@ -83,7 +86,7 @@ class SubjectsCreate(mixins.SubjectsMixin, CreateView):
         context['breadcramps']['create'] = reverse_lazy('subjects create')
         return context
 
-class SubjectsDelete(mixins.SubjectsMixin, DeleteView):
+class SubjectsDelete(LoginRequiredMixin, mixins.SubjectsMixin, DeleteView):
     template_name = 'delete.html'
     model = models.Subject
     success_url = reverse_lazy('subjects')
@@ -101,7 +104,7 @@ class SubjectsDelete(mixins.SubjectsMixin, DeleteView):
         context['breadcramps'][obj.title] = context['breadcramps']['delete']
         return context
     
-class SubjectsEdit(mixins.SubjectsMixin, UpdateView):
+class SubjectsEdit(LoginRequiredMixin, mixins.SubjectsMixin, UpdateView):
     template_name = 'form.html'
     model = models.Subject
     pk_url_kwarg = 'id'
@@ -111,17 +114,18 @@ class SubjectsEdit(mixins.SubjectsMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            headline='SUBJECT EDIT FORM'
-            )
         obj = context[self.context_object_name]
+        context.update(
+            headline='SUBJECT EDIT FORM',
+            object_name=obj.title
+            )
         context['breadcramps']['edit'] = reverse_lazy('subjects edit', kwargs={'id': obj.id})
         context['breadcramps'][obj.title] = context['breadcramps']['edit']
         return context
 
 
 # Groups
-class Groups(mixins.GroupsMixin, ListView):
+class Groups(LoginRequiredMixin, mixins.GroupsMixin, ListView):
     template_name = 'groups/list.html'
     context_object_name = 'groups'
 
@@ -137,7 +141,7 @@ class Groups(mixins.GroupsMixin, ListView):
 
         return group_dict
     
-class GroupsCreate(mixins.GroupsMixin, CreateView):
+class GroupsCreate(LoginRequiredMixin, mixins.GroupsMixin, CreateView):
     template_name = 'form.html'
     model = models.Group
     form_class = forms.GroupCreateForm
@@ -151,7 +155,7 @@ class GroupsCreate(mixins.GroupsMixin, CreateView):
         context['breadcramps']['create'] = reverse_lazy('groups create')
         return context
     
-class GroupsEdit(mixins.GroupsMixin, UpdateView):
+class GroupsEdit(LoginRequiredMixin, mixins.GroupsMixin, UpdateView):
     template_name = 'groups/form.html'
     model = models.Group
     form_class = forms.GroupCreateForm
@@ -166,13 +170,14 @@ class GroupsEdit(mixins.GroupsMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         obj = context[self.context_object_name]
         context.update(
-            headline='GROUP EDIT FORM'
+            headline='GROUP EDIT FORM',
+            object_name=obj.name,
             )
         context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
         context['breadcramps'][obj.name] = context['breadcramps']['edit']
         return context
     
-class GroupsDelete(mixins.GroupsMixin, DeleteView):
+class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
     template_name = 'delete.html'
     success_url = reverse_lazy('groups')
     context_object_name = 'group'
@@ -196,7 +201,3 @@ class GroupsDelete(mixins.GroupsMixin, DeleteView):
 # Schedule
 class Schedule(mixins.ScheduleMixin, TemplateView):
     template_name = 'schedule.html'
-
-
-#TODO Object_name for edit form
-#TODO Form validation
