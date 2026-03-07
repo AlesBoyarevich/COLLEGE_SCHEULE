@@ -23,7 +23,7 @@ class BaseMixin:
     
 
 class CoreMixin(BaseMixin):
-    active = 'index'
+    active = 'account'
     breadcramps = {'main': reverse_lazy('index')}
 
 class TeachersMixin(BaseMixin):

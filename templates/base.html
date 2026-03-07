@@ -20,6 +20,11 @@
                 <a href="{% url 'teachers' %}"><li class="menu-links-link {% active 'teachers' %}">TEACHERS</li></a>
                 <a href="{% url 'groups' %}"><li class="menu-links-link {% active 'groups' %}">GROUPS</li></a>
                 <a href="{% url 'subjects' %}"><li class="menu-links-link {% active 'subjects' %}">SUBJECTS</li></a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}"><li class="menu-links-link {% active 'account' %}">LOG OUT</li></a>
+                {% else %}
+                <a href="{% url 'login' %}"><li class="menu-links-link {% active 'account' %}">LOG IN</li></a>
+                {% endif %}
                 <li class="menu-links-contact">
                     <span>{{ email }}</span>
                     <hr>
