@@ -7,7 +7,7 @@ from . import models
 from utils import mixins
 
 # Teachers
-class Teachers(LoginRequiredMixin, mixins.TeachersMixin, ListView):
+class Teachers(mixins.TeachersMixin, ListView):
     template_name = 'teachers/list.html'
     model = forms.Teacher
     context_object_name = 'teachers'
@@ -67,7 +67,7 @@ class TeachersEdit(LoginRequiredMixin, mixins.TeachersMixin, UpdateView):
         
 
 # Subjects
-class Subjects(LoginRequiredMixin, mixins.SubjectsMixin, ListView):
+class Subjects(mixins.SubjectsMixin, ListView):
     template_name = 'subjects/list.html'
     model = models.Subject
     context_object_name = 'subjects'
@@ -125,7 +125,7 @@ class SubjectsEdit(LoginRequiredMixin, mixins.SubjectsMixin, UpdateView):
 
 
 # Groups
-class Groups(LoginRequiredMixin, mixins.GroupsMixin, ListView):
+class Groups(mixins.GroupsMixin, ListView):
     template_name = 'groups/list.html'
     context_object_name = 'groups'
 
@@ -200,4 +200,15 @@ class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
 
 # Schedule
 class Schedule(mixins.ScheduleMixin, TemplateView):
-    template_name = 'schedule.html'
+    template_name = 'schedule/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active'] = 'schedule'
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+#TODO make shcedule CRUD
+#TODO tests and code cleaning

@@ -56,7 +56,5 @@
 }
 
 .table-column-link:hover{
-    padding: 5px;
-    border: 5px solid #1A57FF;
-    border-radius: 16px;
+    color: #1A57FF;
 }

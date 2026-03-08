@@ -7,25 +7,12 @@ from django.contrib.auth.models import User
 from utils import mixins
 from . import forms
 
-# Index
-class Index(mixins.CoreMixin, TemplateView):
-    template_name = 'core/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active'] = 'index'
-        return context
-
-    def get(self, request, *args, **kwargs):
-        print(f'user: {request.user}')
-        return super().get(request, *args, **kwargs)
-
 
 # Auth
 class Login(mixins.CoreMixin, FormView):
     template_name = 'core/login.html'
     form_class = forms.Login
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('schedule')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,7 +33,7 @@ class Login(mixins.CoreMixin, FormView):
 class Signin(mixins.CoreMixin, CreateView):
     template_name = 'form.html'
     model = User
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('schedule')
     form_class = forms.Create
 
     def get_context_data(self, **kwargs):
@@ -64,7 +51,7 @@ class Signin(mixins.CoreMixin, CreateView):
         return HttpResponseRedirect(self.success_url)
 
 class Logout(mixins.CoreMixin, RedirectView):
-    url = reverse_lazy('index')
+    url = reverse_lazy('schedule')
 
     def get(self, request, *args, **kwargs):
         logout(request)

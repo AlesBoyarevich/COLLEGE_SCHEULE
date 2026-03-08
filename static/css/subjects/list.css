@@ -49,7 +49,7 @@
 }
 
 .list-row-manage a:hover{
-    font-size: 32px;
+    text-decoration: underline;
 }
 
 .list-row-manage-edit{

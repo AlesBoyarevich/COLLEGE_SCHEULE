@@ -7,7 +7,9 @@
     <main>
         <div class="topbar">
             <h1 class="topbar-title">Groups</h1>
+            {% if request.user.is_authenticated %}
             <a href="{% url 'groups create' %}"><button class="list-button">New +</button></a>
+            {% endif %}
         </div>
         <div class="table">
             {% for course, codes in groups.items %}

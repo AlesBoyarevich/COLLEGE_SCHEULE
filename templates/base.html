@@ -15,7 +15,6 @@
         <header>
             <nav class="menu-links">
                 <li class="menu-links-logo"><img src="{% static 'img/logo.png' %}" alt=""></li>
-                <a href="{% url 'index' %}"><li class="menu-links-link {% active 'index' %}">INDEX</li></a>
                 <a href="{% url 'schedule' %}"><li class="menu-links-link {% active 'schedule' %}">SCHEDULE</li></a>
                 <a href="{% url 'teachers' %}"><li class="menu-links-link {% active 'teachers' %}">TEACHERS</li></a>
                 <a href="{% url 'groups' %}"><li class="menu-links-link {% active 'groups' %}">GROUPS</li></a>
@@ -50,7 +49,6 @@
             </div>
             <div class="footer-links">
                 <div class="footer-sitelinks">
-                    <a href="{% url 'index' %}"><div>INDEX</div></a>
                     <a href="{% url 'schedule' %}"><div>SCHEDULE</div></a>
                     <a href="{% url 'teachers' %}"><div>TEACHERS</div></a>
                     <a href="{% url 'groups' %}"><div>GROUPS</div></a>

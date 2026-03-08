@@ -18,5 +18,5 @@ urlpatterns = [
     path('groups/edit/<str:group_name>/', views.GroupsEdit.as_view(), name='groups edit'),
     path('groups/delete/<str:group_name>/', views.GroupsDelete.as_view(), name='groups delete'),
 
-    path('schedule/', views.Schedule.as_view(), name='schedule'),
+    path('', views.Schedule.as_view(), name='schedule'),
 ]
