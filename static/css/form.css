@@ -108,6 +108,20 @@
     color: black;
 }
 
+.form-select{
+    font-size: 24px;
+    padding: 24px;
+
+    border: 2px solid #1A57FF;
+    border-radius: 15px;
+}
+
+.form-select:focus{
+    outline: none;
+    border-width: 5px;
+    border-color: #1A57FF;
+}
+
 .form-file::file-selector-button{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;

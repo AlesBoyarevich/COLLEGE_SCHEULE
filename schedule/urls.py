@@ -19,4 +19,7 @@ urlpatterns = [
     path('groups/delete/<str:group_name>/', views.GroupsDelete.as_view(), name='groups delete'),
 
     path('', views.Schedule.as_view(), name='schedule'),
+    path('schedule/create/', views.ScheduleCreate.as_view(), name='schedule create'),
+    path('schedule/edit/<int:id>/', views.ScheduleEdit.as_view(), name='schedule edit'),
+    path('schedule/delete/<int:id>/', views.ScheduleDelete.as_view(), name='schedule delete'),
 ]

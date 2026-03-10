@@ -1,0 +1,52 @@
+.topbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topbar-title{
+    font-size: 64px;
+    font-weight: bold;
+    color: #1A57FF;
+    margin-bottom: 50px
+}
+
+.topbar a button{
+    font-size: 32px;
+    padding: 16 32px;
+    background-color: #1A57FF;
+    color: whitesmoke;
+    border: none;
+    border-radius: 16px;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.list table{
+    width: 100%;
+}
+
+.list table caption{
+    color: #1A57FF;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.list table tr td{
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+.list table tr td a{
+    color: black;
+}
+
+.active-link:hover{
+    color: #1A57FF;
+}

@@ -156,7 +156,7 @@ class GroupsCreate(LoginRequiredMixin, mixins.GroupsMixin, CreateView):
         return context
     
 class GroupsEdit(LoginRequiredMixin, mixins.GroupsMixin, UpdateView):
-    template_name = 'groups/form.html'
+    template_name = 'form_and_delete.html'
     model = models.Group
     form_class = forms.GroupCreateForm
     success_url = reverse_lazy('groups')
@@ -175,6 +175,7 @@ class GroupsEdit(LoginRequiredMixin, mixins.GroupsMixin, UpdateView):
             )
         context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
         context['breadcramps'][obj.name] = context['breadcramps']['edit']
+        context['delete_url'] = reverse_lazy('groups delete', kwargs={'group_name': obj.name})
         return context
     
 class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
@@ -199,8 +200,33 @@ class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
 
 
 # Schedule
-class Schedule(mixins.ScheduleMixin, TemplateView):
+class Schedule(mixins.ScheduleMixin, ListView):
     template_name = 'schedule/list.html'
+    context_object_name = 'schedule'
+
+    def get_queryset(self):
+        schedule: dict[str: dict[str: dict[str: Schedule]]] = {}
+        days = models.Schedule.Day.choices
+        times = models.Schedule.Time.choices
+        groups = models.Group.objects.values_list('name', flat=True)
+
+        schedules = models.Schedule.objects.all()
+
+        for day in days:
+            schedule[day[1]] = {}
+            for group in groups:
+                schedule[day[1]][group] = {}
+                for time in times:
+                    schedule[day[1]][group][time[1]] = schedules.filter(day=day[0], group__name=group, time=time[0]).first()
+
+
+        # for k, d in schedule.items():
+        #     print(k)
+        #     for k, t in d.items():
+        #         print(f'\t{k}')
+        #         for k, g in t.items():
+        #             print(f'\t\t{k} == {g}')
+        return schedule
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -209,6 +235,92 @@ class Schedule(mixins.ScheduleMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+    
+class ScheduleCreate(LoginRequiredMixin, mixins.ScheduleMixin, CreateView):
+    template_name = 'form.html'
+    model = Schedule
+    form_class = forms.ScheduleCreateForm
+    success_url = reverse_lazy('schedule')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['headline'] = 'SCHEDULE ENTRY CREATE FORM'
+        context['breadcramps']['create'] = reverse_lazy('schedule create')
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = None
+
+        form = self.get_form()
+        obj:models.Schedule = form.save(commit=False)
+
+        query_1 = models.Schedule.objects.filter(group=obj.group, day=obj.day, time=obj.time).first()
+        query_2 = models.Schedule.objects.filter(teacher=obj.teacher, day=obj.day, time=obj.time).first()
+        if query_1 != None:
+            form.add_error('group', error='This time is booked for this group')
+        if query_2 != None:
+            form.add_error('teacher', error='This time is booked for this teacher')
+        
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+class ScheduleEdit(LoginRequiredMixin, mixins.ScheduleMixin, UpdateView):
+    template_name = 'form_and_delete.html'
+    model = models.Schedule
+    form_class = forms.ScheduleCreateForm
+    pk_url_kwarg = 'id'
+    success_url = reverse_lazy('schedule')
+    context_object_name = 'schedule'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = context[self.context_object_name]
+        context['headline'] = 'SCHEDULE ENTRY EDIT FORM'
+        context['object_name'] = obj
+        context['breadcramps']['edit'] = reverse_lazy('schedule edit', kwargs={'id': obj.id})
+        context['breadcramps'][obj.id] = context['breadcramps']['edit']
+        context['delete_url'] = reverse_lazy('schedule delete', kwargs={'id': obj.id})
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        form = self.get_form()
+        obj:models.Schedule = form.save(commit=False)
+
+        query_1 = models.Schedule.objects.filter(group=obj.group, day=obj.day, time=obj.time).first()
+        query_2 = models.Schedule.objects.filter(teacher=obj.teacher, day=obj.day, time=obj.time).first()
+        if query_1 != None and query_1 != obj:
+            form.add_error('group', error='This time is booked for this group')
+        if query_2 != None and query_2 != obj:
+            form.add_error('teacher', error='This time is booked for this teacher')
+        
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+    
+class ScheduleDelete(LoginRequiredMixin, mixins.ScheduleMixin, DeleteView):
+    template_name = 'delete.html'
+    model = models.Schedule
+    success_url = reverse_lazy('schedule')
+    pk_url_kwarg = 'id'
+    context_object_name = 'schedule'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = context[self.context_object_name]
+        context.update(
+            object_name=obj,
+            canel_url='schedule',
+            )
+        context['breadcramps']['delete'] = reverse_lazy('schedule delete', kwargs={'id': obj.id})
+        context['breadcramps'][obj] = context['breadcramps']['delete']
+        return context
 
 #TODO make shcedule CRUD
 #TODO tests and code cleaning
+

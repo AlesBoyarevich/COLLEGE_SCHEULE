@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django import forms
 from .models import *
 
@@ -50,5 +51,35 @@ class GroupCreateForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-name'
+            })
+        }
+
+
+class ScheduleCreateForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ('group', 'subject', 'teacher', 'day', 'time')
+        labels = {
+            'group': 'GROUP:',
+            'subject': 'SUBJECT:',
+            'teacher': 'TEACHER:',
+            'day': 'DAY:',
+            'time': 'TIME:'
+        }
+        widgets = {
+            'group': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'subject': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'teacher': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'day': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'time': forms.Select(attrs={
+                'class': 'form-select'
             })
         }

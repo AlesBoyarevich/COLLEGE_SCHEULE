@@ -18,7 +18,7 @@
         </div>
         {% endfor %}
         <div class="form-button_block">
-            <a class="form-delete" href="{% url 'groups delete' object.name %}">Delete</a>
+            <a class="form-delete" href="{{ delete_url }}">Delete</a>
             <button class="form-submit" type="submit">submit</button>
         </div>
     </form>

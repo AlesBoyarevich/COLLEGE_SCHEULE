@@ -16,3 +16,8 @@ class SubjectAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name',)
     ordering = ('name',)
+
+
+@admin.register(models.Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ('group', 'subject', 'teacher', 'day', 'time')

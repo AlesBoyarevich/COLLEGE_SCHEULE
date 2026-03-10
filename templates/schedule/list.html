@@ -1,6 +1,65 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/schedule/list.css' %}">
+{% endblock %}
 {% block main %}
     <main>
-        <h1>Here is CRUD for schedule</h1>
+        <div class="topbar">
+            <h1 class="topbar-title">Schedule</h1>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'schedule create' %}"><button class="list-button">New +</button></a>
+            {% endif %}
+        </div>
+        <div class="list">
+            {% for day, record_by_day in schedule.items %}
+            <table>
+                <caption>{{ day }}</caption>
+                <thead>
+                    {% for group, record_by_group in record_by_day.items %}
+                        {% if forloop.first %}
+                            {%  for time, record_by_time in record_by_group.items %}
+                                {% if forloop.first %}
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                {% endif %}
+                                    <td>
+                                        {{ time }}
+                                    </td>
+                                {% if forloop.last %}
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for group, record_by_group in record_by_day.items %}
+                        {%  for time, record_by_time in record_by_group.items %}
+                            {% if forloop.first %}
+                            <tr>
+                                <td>
+                                    {{ group }}
+                                </td>
+                            {% endif %}
+                            <td>
+                                {% if record_by_time %}
+                                <a {% if request.user.is_authenticated %}href="{% url 'schedule edit' record_by_time.id %}" class="active-link"{% endif %}">
+                                    <span>{{ record_by_time.subject }}</span><br>
+                                    <span>{{ record_by_time.teacher }}</span>
+                                </a>
+                                {% endif %}
+                            </td>
+                            {% if forloop.last %}
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
     </main>
 {% endblock %}
