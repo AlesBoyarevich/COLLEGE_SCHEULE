@@ -11,6 +11,11 @@
             <a href="{% url 'schedule create' %}"><button class="list-button">New +</button></a>
             {% endif %}
         </div>
+        {% if canel_filter %}
+        <a style="color: #1A57FF;" href="{% url 'schedule' %}">Canel Filter</a>
+        {% else %}
+        <span>press on group to filter by group</span>
+        {% endif %}
         <div class="list">
             {% for day, record_by_day in schedule.items %}
             <table>
@@ -41,7 +46,7 @@
                             {% if forloop.first %}
                             <tr>
                                 <td>
-                                    {{ group }}
+                                    <a class="active-link" href="{% url 'schedule' %}?group={{ group }}">{{ group }}</a>
                                 </td>
                             {% endif %}
                             <td>

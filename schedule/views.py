@@ -208,7 +208,10 @@ class Schedule(mixins.ScheduleMixin, ListView):
         schedule: dict[str: dict[str: dict[str: Schedule]]] = {}
         days = models.Schedule.Day.choices
         times = models.Schedule.Time.choices
-        groups = models.Group.objects.values_list('name', flat=True)
+        if models.Group.objects.filter(name=self.request.GET.get('group')):
+            groups = models.Group.objects.filter(name=self.request.GET['group'])
+        else:
+            groups = models.Group.objects.values_list('name', flat=True)
 
         schedules = models.Schedule.objects.all()
 
@@ -219,18 +222,15 @@ class Schedule(mixins.ScheduleMixin, ListView):
                 for time in times:
                     schedule[day[1]][group][time[1]] = schedules.filter(day=day[0], group__name=group, time=time[0]).first()
 
-
-        # for k, d in schedule.items():
-        #     print(k)
-        #     for k, t in d.items():
-        #         print(f'\t{k}')
-        #         for k, g in t.items():
-        #             print(f'\t\t{k} == {g}')
         return schedule
 
     def get_context_data(self, **kwargs):
+        group =  self.request.GET.get('group')
         context = super().get_context_data(**kwargs)
         context['active'] = 'schedule'
+        context['canel_filter'] = group != None
+        if context['canel_filter']:
+            context['breadcramps'][group] = reverse_lazy('schedule') + '?group=' + group
         return context
 
     def get(self, request, *args, **kwargs):
@@ -246,6 +246,7 @@ class ScheduleCreate(LoginRequiredMixin, mixins.ScheduleMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['headline'] = 'SCHEDULE ENTRY CREATE FORM'
         context['breadcramps']['create'] = reverse_lazy('schedule create')
+
         return context
     
     def post(self, request, *args, **kwargs):
@@ -296,12 +297,13 @@ class ScheduleEdit(LoginRequiredMixin, mixins.ScheduleMixin, UpdateView):
         if query_1 != None and query_1 != obj:
             form.add_error('group', error='This time is booked for this group')
         if query_2 != None and query_2 != obj:
-            form.add_error('teacher', error='This time is booked for this teacher')
+            form.add_error('teacher', error='                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 This time is booked for this teacher')
         
         if form.is_valid():
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+        
     
 class ScheduleDelete(LoginRequiredMixin, mixins.ScheduleMixin, DeleteView):
     template_name = 'delete.html'
