@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 
 class Login(forms.Form):
-    username = forms.CharField(max_length=100, label='USERNAME:', widget=forms.TextInput(attrs={
+    username = forms.CharField(label='USERNAME:', widget=forms.TextInput(attrs={
         'class': 'form-name'
     }))
-    password = forms.CharField(max_length=100, label='PASSWORD:', widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='PASSWORD:', widget=forms.PasswordInput(attrs={
         'class': 'form-password'
     }))
 

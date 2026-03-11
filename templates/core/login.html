@@ -8,6 +8,7 @@
     <h1 class="form-title">{{ headline }}<br><span class="form-subhadline">you must login to unlock any actions such as CRUD operations</span></h1>
     <form class="form" method="post">
         {% csrf_token %}
+        <span style="color: crimson; font-size: 24px;">{{ form.non_field_errors }}</span>
         {% for field in form %}
         <div class="form-field">
             <span style="color: red;">{{ field.errors }}</span>

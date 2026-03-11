@@ -12,7 +12,6 @@ from . import forms
 class Login(mixins.CoreMixin, FormView):
     template_name = 'core/login.html'
     form_class = forms.Login
-    success_url = reverse_lazy('schedule')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,7 +19,7 @@ class Login(mixins.CoreMixin, FormView):
         context['breadcramps'] = {'log in': reverse_lazy('login')}
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = self.get_form()
         if form.is_valid():
             data = form.cleaned_data
@@ -28,7 +27,11 @@ class Login(mixins.CoreMixin, FormView):
             if user:
                 login(request=request, user=user)
                 return HttpResponseRedirect(self.get_success_url())
+        form.add_error(None, 'Uncorrect username or password')
         return self.form_invalid(form)
+    
+    def get_success_url(self):
+        return self.request.GET['next']
 
 class Signin(mixins.CoreMixin, CreateView):
     template_name = 'form.html'
@@ -50,9 +53,11 @@ class Signin(mixins.CoreMixin, CreateView):
         login(self.request, user)
         return HttpResponseRedirect(self.success_url)
 
-class Logout(mixins.CoreMixin, RedirectView):
-    url = reverse_lazy('schedule')
 
-    def get(self, request, *args, **kwargs):
+class Logout(RedirectView):
+    def get(self, request):
         logout(request)
-        return HttpResponseRedirect(self.url)
+        return HttpResponseRedirect(self.get_redirect_url())
+    
+    def get_redirect_url(self):
+        return self.request.GET['next']

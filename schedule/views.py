@@ -228,6 +228,7 @@ class Schedule(mixins.ScheduleMixin, ListView):
         group =  self.request.GET.get('group')
         context = super().get_context_data(**kwargs)
         context['active'] = 'schedule'
+        context['times'] = models.Schedule.Time.labels
         context['canel_filter'] = group != None
         if context['canel_filter']:
             context['breadcramps'][group] = reverse_lazy('schedule') + '?group=' + group
@@ -249,7 +250,7 @@ class ScheduleCreate(LoginRequiredMixin, mixins.ScheduleMixin, CreateView):
 
         return context
     
-    def post(self, request, *args, **kwargs):
+    def post(self):
         self.object = None
 
         form = self.get_form()
@@ -322,7 +323,3 @@ class ScheduleDelete(LoginRequiredMixin, mixins.ScheduleMixin, DeleteView):
         context['breadcramps']['delete'] = reverse_lazy('schedule delete', kwargs={'id': obj.id})
         context['breadcramps'][obj] = context['breadcramps']['delete']
         return context
-
-#TODO make shcedule CRUD
-#TODO tests and code cleaning
-

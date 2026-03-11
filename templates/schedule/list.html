@@ -21,22 +21,18 @@
             <table>
                 <caption>{{ day }}</caption>
                 <thead>
-                    {% for group, record_by_group in record_by_day.items %}
+                    {% for time in times %}
                         {% if forloop.first %}
-                            {%  for time, record_by_time in record_by_group.items %}
-                                {% if forloop.first %}
-                                <tr>
-                                    <td>
+                            <tr>
+                                <td>
 
-                                    </td>
-                                {% endif %}
-                                    <td>
-                                        {{ time }}
-                                    </td>
-                                {% if forloop.last %}
-                                </tr>
-                                {% endif %}
-                            {% endfor %}
+                                </td>
+                        {% endif %}
+                                <td>
+                                    {{ time }}
+                                </td>
+                        {% if forloop.last %}
+                            </tr>
                         {% endif %}
                     {% endfor %}
                 </thead>
