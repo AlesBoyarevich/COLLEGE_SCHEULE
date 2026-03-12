@@ -5,17 +5,17 @@
 {% endblock %}
 {% block main %}
 <main>
-    <h1 class="form-title">{{ headline }}{% if object_name %}<br><span class="form-subhadline">of {{ object_name }}</span>{% endif %}</h1>
+    <h1 class="headline">{{ headline }}<br><span class="subhadline">{{ subheadline }}</span></h1>
     <form class="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="form-field">
+        <div class="form___field">
             <span style="color: red;">{{ field.errors }}</span>
-            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <label class="form___field-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
         </div>
         {% endfor %}
-        <button class="form-submit" type="submit">submit</button>
+        <button class="form___submit" type="submit">submit</button>
     </form>
 </main>
 {% endblock %}

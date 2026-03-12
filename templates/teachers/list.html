@@ -6,21 +6,25 @@
 {% block main %}
     <main>
         <div class="topbar">
-            <h1 class="topbar-title">Teachers</h1>
+            <h1 class="headline">{{ headline }}<br><span class="subhadline">{{ subheadline }}</span></h1>
             {% if request.user.is_authenticated %}
-            <a href="{% url 'teachers create' %}"><button class="list-button">New +</button></a>
+            <a href="{% url 'teachers create' %}"><button class="topbar___button">New +</button></a>
             {% endif %}
         </div>
         <div class="list">
             {% for teacher in teachers %}
-            <div class="list-item" {% if request.user.is_anonymous %}style="min-height: 325px;"{% endif %}>
-                <div class="list-item-top" style="background-image: url('{{ teacher.image.url }}');">
-                    <h2>{{teacher.lastname}} {{ teacher.name }} {{ teacher.surname }}</h2>
+            <div class="list___item" {% if request.user.is_anonymous %}style="min-height: 325px;"{% endif %}>
+                <div class="list___item-top" style="background-image: url('{{ teacher.image.url }}');">
+                    <h2 class="list___item-top-headline">{{teacher.lastname}} {{ teacher.name }} {{ teacher.surname }}</h2>
                 </div>
                 {% if request.user.is_authenticated %}
-                <div class="list-item-bottom">
-                    <a href="{% url 'teachers edit' teacher.id %}"><img src="{% static 'img/edit.png' %}" alt=""></a>
-                    <a href="{% url 'teachers delete' teacher.id %}"><img src="{% static 'img/bin.png' %}" alt=""></a>
+                <div class="list___item-bottom">
+                    <a class="list___item-bottom-link" href="{% url 'teachers edit' teacher.id %}">
+                        <img class="list___item-bottom-link-image" src="{% static 'img/edit.png' %}" alt="">
+                    </a>
+                    <a class="list___item-bottom-link" href="{% url 'teachers delete' teacher.id %}">
+                        <img class="list___item-bottom-link-image" src="{% static 'img/bin.png' %}" alt="">
+                    </a>
                 </div>
                 {% endif %}
             </div>

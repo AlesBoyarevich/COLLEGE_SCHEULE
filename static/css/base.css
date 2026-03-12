@@ -26,3 +26,31 @@ main{
     border-radius: 36px;
     background-color: white;
 }
+
+.headline{
+    font-size: 64px;
+    font-weight: bold;
+    color: #1A57FF;
+    margin-bottom: 50px;
+}
+
+.subheadline{
+    font-size: 32px;
+    font-weight: bold;
+    color: #1A57FF;
+}
+
+.topbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topbar___button{
+    font-size: 32px;
+    padding: 16 32px;
+    background-color: #1A57FF;
+    color: whitesmoke;
+    border: none;
+    border-radius: 16px;
+}

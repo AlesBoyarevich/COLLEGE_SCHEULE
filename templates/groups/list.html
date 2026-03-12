@@ -6,18 +6,18 @@
 {% block main%}
     <main>
         <div class="topbar">
-            <h1 class="topbar-title">Groups</h1>
+            <h1 class="headline">{{ headline }}</h1>
             {% if request.user.is_authenticated %}
-            <a href="{% url 'groups create' %}"><button class="list-button">New +</button></a>
+            <a href="{% url 'groups create' %}"><button class="topbar___button">New +</button></a>
             {% endif %}
         </div>
         <div class="table">
             {% for course, codes in groups.items %}
-            <div class="table-column">
-                <span class="table-course">{{ course }}К</span>
-                <div class="">
+            <div class="table___column">
+                <span class="table___column-title">{{ course }}К</span>
+                <div class="table___column-items">
                     {% for code in codes %}
-                        <div><a class="table-column-link" href="{% url 'groups edit' course|add:'К'|add:code %}">{{ code }}</a></div>
+                        <div><a class="table___column-item" href="{% url 'groups edit' course|add:'К'|add:code %}">{{ code }}</a></div>
                     {% endfor %}
                 </div>
             </div>

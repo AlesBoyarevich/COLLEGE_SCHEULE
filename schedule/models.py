@@ -29,10 +29,16 @@ class Subject(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=50)
 
+    ru_k = 'К'
+    en_k = 'K'
 
     def get_key_value_pair(self):
-        l = self.name.split('К')
+        l = self.name.split(self.ru_k)
         return (l[0], l[1])
+    
+    def save(self):
+        self.name = self.name.upper().replace(self.en_k, self.ru_k)
+        return super().save()
 
     class Meta:
         verbose_name = 'Group'

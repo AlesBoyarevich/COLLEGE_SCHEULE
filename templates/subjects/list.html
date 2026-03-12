@@ -6,20 +6,20 @@
 {% block main %}
 <main>
     <div class="topbar">
-        <h1 class="topbar-title">Subjects</h1>
+        <h1 class="headline">{{ headline }}<br><span class="subhadline">{{ subheadline }}</span></h1>
         {% if request.user.is_authenticated %}
-        <a href="{% url 'subjects create' %}"><button class="list-button">New +</button></a>
+        <a href="{% url 'subjects create' %}"><button class="topbar___button">New +</button></a>
         {% endif %}
     </div>
     <ul class="list">
         {% for subject in subjects %}
-        <hr class="list-line">
-        <li class="list-row">
+        <hr class="list___line">
+        <li class="list___row">
             <span>{{ subject.title }}</span>
-            <div class="list-row-manage">
+            <div class="list___row-manage">
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'subjects edit' subject.id %}" class="list-row-manage-edit">EDIT</a>
-                <a href="{% url 'subjects delete' subject.id %}" class="list-row-manage-delete">DELETE</a>
+                <a href="{% url 'subjects edit' subject.id %}" class="list___row-manage-edit list___row-manage---active">EDIT</a>
+                <a href="{% url 'subjects delete' subject.id %}" class="list___row-manage-delete list___row-manage---active">DELETE</a>
                 {% endif %}
             </div>
         </li>

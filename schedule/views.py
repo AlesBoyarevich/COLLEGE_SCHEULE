@@ -12,18 +12,18 @@ class Teachers(mixins.TeachersMixin, ListView):
     model = forms.Teacher
     context_object_name = 'teachers'
 
+    headline = 'TEACHERS'
+
 class TeachersCreate(LoginRequiredMixin, mixins.TeachersMixin, CreateView):
     template_name = 'form.html'
     model = models.Teacher
     form_class = forms.TeacherCreateForm
     success_url = reverse_lazy('teachers')
-    
+
+    headline = 'TEACHERS ADD'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            headline='TEACHERS CREATE FORM'
-            )
         context['breadcramps']['create'] = reverse_lazy('teachers create')
         return context
 
@@ -34,11 +34,13 @@ class TeachersDelete(LoginRequiredMixin, mixins.TeachersMixin, DeleteView):
     pk_url_kwarg = 'id'
     context_object_name = 'teacher'
 
+    headline = 'TEACHER DELETE CONFIRM'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context_object = context[self.context_object_name]
         context.update(
-            object_name=f'{context_object.lastname} {context_object.name} {context_object.surname}',
+            subheadline=f'of {context_object.lastname} {context_object.name} {context_object.surname}',
             canel_url='teachers',
             )
         context['breadcramps']['delete'] = reverse_lazy('teachers delete', kwargs={'id': context_object.id})
@@ -58,13 +60,17 @@ class TeachersEdit(LoginRequiredMixin, mixins.TeachersMixin, UpdateView):
         context_object = context[self.context_object_name]
         context_object_fullname = str.join(' ', [context_object.lastname, context_object.name, context_object.surname])
         context.update(
-            headline='TEACHERS EDIT FORM',
-            object_name=context_object_fullname,
+            headline='TEACHER EDIT FORM',
+            subheadline='of ' + context_object_fullname,
             )
         context['breadcramps']['edit'] = reverse_lazy('teachers edit', kwargs={'id': context_object.id})
         context['breadcramps'][context_object_fullname] = context['breadcramps']['edit']
+
+        context_file_name = context['form'].initial['image'].name.split('/')[-1]
+        context['form'].fields['image'].label = f'TEACHER IMAGE (now {context_file_name}):'
+
         return context
-        
+    
 
 # Subjects
 class Subjects(mixins.SubjectsMixin, ListView):
@@ -72,17 +78,18 @@ class Subjects(mixins.SubjectsMixin, ListView):
     model = models.Subject
     context_object_name = 'subjects'
 
+    headline = 'SUBJECTS'
+
 class SubjectsCreate(LoginRequiredMixin, mixins.SubjectsMixin, CreateView):
     template_name = 'form.html'
     model = models.Subject
     form_class = forms.SubjectCreateForm
     success_url = reverse_lazy('subjects')
 
+    headline = 'SUBJECTS ADD'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            headline='SUBJECT CREATE FORM'
-            )
         context['breadcramps']['create'] = reverse_lazy('subjects create')
         return context
 
@@ -93,11 +100,13 @@ class SubjectsDelete(LoginRequiredMixin, mixins.SubjectsMixin, DeleteView):
     pk_url_kwarg = 'id'
     context_object_name = 'subject'
 
+    headline = 'SUBJECT DELETE CONFIRM'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = context[self.context_object_name]
         context.update(
-            object_name=obj.title,
+            subheadline='of ' + obj.title,
             canel_url='subjects',
             )
         context['breadcramps']['delete'] = reverse_lazy('subjects delete', kwargs={'id': obj.id})
@@ -112,12 +121,13 @@ class SubjectsEdit(LoginRequiredMixin, mixins.SubjectsMixin, UpdateView):
     success_url = reverse_lazy('subjects')
     context_object_name = 'subject'
 
+    headline = 'SUBJECT EDIT FORM'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = context[self.context_object_name]
         context.update(
-            headline='SUBJECT EDIT FORM',
-            object_name=obj.title
+            subheadline='of ' + obj.title
             )
         context['breadcramps']['edit'] = reverse_lazy('subjects edit', kwargs={'id': obj.id})
         context['breadcramps'][obj.title] = context['breadcramps']['edit']
@@ -128,6 +138,8 @@ class SubjectsEdit(LoginRequiredMixin, mixins.SubjectsMixin, UpdateView):
 class Groups(mixins.GroupsMixin, ListView):
     template_name = 'groups/list.html'
     context_object_name = 'groups'
+
+    headline = 'GROUPS'
 
     def get_queryset(self):
         groups = models.Group.objects.all()
@@ -147,11 +159,10 @@ class GroupsCreate(LoginRequiredMixin, mixins.GroupsMixin, CreateView):
     form_class = forms.GroupCreateForm
     success_url = reverse_lazy('groups')
 
+    headline = 'GROUPS ADD'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            headline='GROUP CREATE FORM'
-            )
         context['breadcramps']['create'] = reverse_lazy('groups create')
         return context
     
@@ -162,6 +173,8 @@ class GroupsEdit(LoginRequiredMixin, mixins.GroupsMixin, UpdateView):
     success_url = reverse_lazy('groups')
     context_object_name = 'group'
 
+    headline = 'GROUP EDIT FORM'
+
 
     def get_object(self):
         return get_object_or_404(models.Group, name=self.kwargs['group_name'])
@@ -170,8 +183,7 @@ class GroupsEdit(LoginRequiredMixin, mixins.GroupsMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         obj = context[self.context_object_name]
         context.update(
-            headline='GROUP EDIT FORM',
-            object_name=obj.name,
+            subheadline='of ' + obj.name,
             )
         context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
         context['breadcramps'][obj.name] = context['breadcramps']['edit']
@@ -182,6 +194,8 @@ class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
     template_name = 'delete.html'
     success_url = reverse_lazy('groups')
     context_object_name = 'group'
+
+    headline = 'GROUP DELETE CONFIRM'
     
     def get_object(self):
         return get_object_or_404(models.Group, name=self.kwargs['group_name'])
@@ -191,7 +205,7 @@ class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
         obj = context[self.context_object_name]
         context.update(
             canel_url='groups',
-            object_name=f'{obj.name}'
+            subheadline=f'of {obj.name}'
         )
         context['breadcramps']['edit'] = reverse_lazy('groups edit', kwargs={'group_name': obj.name})
         context['breadcramps']['delete'] = reverse_lazy('groups delete', kwargs={'group_name': obj.name})
@@ -203,6 +217,8 @@ class GroupsDelete(LoginRequiredMixin, mixins.GroupsMixin, DeleteView):
 class Schedule(mixins.ScheduleMixin, ListView):
     template_name = 'schedule/list.html'
     context_object_name = 'schedule'
+
+    headline = 'SCHEDULE'
 
     def get_queryset(self):
         schedule: dict[str: dict[str: dict[str: Schedule]]] = {}
@@ -243,14 +259,15 @@ class ScheduleCreate(LoginRequiredMixin, mixins.ScheduleMixin, CreateView):
     form_class = forms.ScheduleCreateForm
     success_url = reverse_lazy('schedule')
 
+    headline = 'SCHEDULE ENTRY ADD'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['headline'] = 'SCHEDULE ENTRY CREATE FORM'
         context['breadcramps']['create'] = reverse_lazy('schedule create')
 
         return context
     
-    def post(self):
+    def post(self, request, *args, **kwargs):
         self.object = None
 
         form = self.get_form()
@@ -277,13 +294,14 @@ class ScheduleEdit(LoginRequiredMixin, mixins.ScheduleMixin, UpdateView):
     success_url = reverse_lazy('schedule')
     context_object_name = 'schedule'
 
+    headline = 'SCHEDULE ENTRY EDIT FORM'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        obj = context[self.context_object_name]
-        context['headline'] = 'SCHEDULE ENTRY EDIT FORM'
-        context['object_name'] = obj
+        obj:models.Schedule = context[self.context_object_name]
+        context['subheadline'] = 'of ' + obj.__str__()
         context['breadcramps']['edit'] = reverse_lazy('schedule edit', kwargs={'id': obj.id})
-        context['breadcramps'][obj.id] = context['breadcramps']['edit']
+        context['breadcramps'][obj.__str__()] = context['breadcramps']['edit']
         context['delete_url'] = reverse_lazy('schedule delete', kwargs={'id': obj.id})
         return context
     
@@ -313,11 +331,13 @@ class ScheduleDelete(LoginRequiredMixin, mixins.ScheduleMixin, DeleteView):
     pk_url_kwarg = 'id'
     context_object_name = 'schedule'
 
+    headline = 'SCHEDULE DELETE CONFIRM'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = context[self.context_object_name]
         context.update(
-            object_name=obj,
+            subheadline='of ' + obj.__str__(),
             canel_url='schedule',
             )
         context['breadcramps']['delete'] = reverse_lazy('schedule delete', kwargs={'id': obj.id})

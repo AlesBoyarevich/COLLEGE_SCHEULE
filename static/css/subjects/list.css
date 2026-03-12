@@ -1,37 +1,15 @@
-.topbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.topbar h1{
-    font-size: 64px;
-    font-weight: bold;
-    color: #1A57FF;
-    margin-bottom: 50px
-}
-
-.topbar a button{
-    font-size: 32px;
-    padding: 16 32px;
-    background-color: #1A57FF;
-    color: whitesmoke;
-    border: none;
-    border-radius: 16px;
-}
-
 .list{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.list-line{
+.list___line{
     border-color: lightgray;
     border-width: 1px;
 }
 
-.list-row{
+.list___row{
     margin-left: 25px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -41,22 +19,22 @@
     justify-content: space-between;
 }
 
-.list-row-manage{
+.list___row-manage{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 25px;
 }
 
-.list-row-manage a:hover{
+.list___row-manage---active:hover{
     text-decoration: underline;
 }
 
-.list-row-manage-edit{
+.list___row-manage-edit{
     color: #1A57FF;
 }
 
-.list-row-manage-delete{
+.list___row-manage-delete{
     color: black;
 }
 

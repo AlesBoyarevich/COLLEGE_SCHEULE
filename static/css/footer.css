@@ -1,4 +1,4 @@
-footer{
+.footer{
     min-height: 400px;
 
     background-image: url('This must be changed in style');
@@ -12,7 +12,7 @@ footer{
     color: whitesmoke;
 }
 
-.footer-description
+.footer___description
 {
     flex: 1;
     padding: 50px 100px;
@@ -21,20 +21,20 @@ footer{
     gap: 5px;
 }
 
-.footer-description span
+.footer___description-title
 {
     font-size: 32px;
     font-weight: bold;
 }
 
-.footer-description p
+.footer___description-text
 {
     font-size: 24px;
     text-indent: 32px;
     text-wrap-mode: wrap;
 }
 
-.footer-links
+.footer___links
 {
     flex: 2;
     display: flex;
@@ -44,14 +44,14 @@ footer{
     padding: 50px 100px;
 }
 
-.footer-sitelinks
+.footer___nav
 {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.footer-sitelinks div
+.footer___nav-button
 {
     padding: 10px;
     border-width: 3px;
@@ -60,31 +60,29 @@ footer{
     border-color: whitesmoke;
 }
 
-.footer-sitelinks a
+.footer___nav-link
 {
     font-weight: bold;
     font-size: 24px;
 }
 
-.footer-medialinks
+.footer___media
 {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.footer-medialinks img
+.footer___media-image
 {
     height: 64px;
     width: auto;
 }
 
-.footer-license{
+.footer___license{
     text-align: center;
 }
 
-.footer-license span{
-    /* text-shadow: -1px 1px 1px rgb(245, 245, 245, 0.5), 0px 1px 1px rgb(245, 245, 245, 0.5), 1px 1px 1px rgb(245, 245, 245, 0.5), 1px 0px 1px rgb(245, 245, 245, 0.5), 1px -1px 1px rgb(245, 245, 245, 0.5), 0px -1px 1px rgb(245, 245, 245, 0.5), -1px -1px 1px rgb(245, 245, 245, 0.5), -1px 0px 1px rgb(245, 245, 245, 0.5); */
-    /* text-shadow: -1px 1px 1px black, 0px 1px 1px black, 1px 1px 1px black, 1px 0px 1px black, 1px -1px 1px black, 0px -1px 1px black, -1px -1px 1px black, -1px 0px 1px black; */
+.footer___license-text{
     text-decoration: underline;
 }

@@ -5,11 +5,11 @@
 {% endblock %}
 {% block main %}
 <main>
-    <h1 class="base-title">Confirm deletion <br><span class="form-subhadline">of {{ object_name }}</span></h1>
+    <h1 class="headline">{{ headline }}<br><span class="subheadline">{{ subheadline }}</span></h1>
     <form class="form" method="post">
         {% csrf_token %}
-        <a href="{% url canel_url %}"><button class="form-button form-canel" type="button">Canael</button></a>
-        <button class="form-button form-edit" type="submit">Confirm</button>
+        <a href="{% url canel_url %}"><button class="form___button form___button-canel" type="button">Canael</button></a>
+        <button class="form___button form___button-edit" type="submit">Confirm</button>
     </form>
 </main>
 {% endblock %}

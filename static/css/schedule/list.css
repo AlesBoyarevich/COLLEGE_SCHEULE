@@ -1,23 +1,31 @@
-.topbar{
+.info{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 50px;
 }
 
-.topbar-title{
-    font-size: 64px;
+.info___help{
+    font-size: 24px;
     font-weight: bold;
     color: #1A57FF;
-    margin-bottom: 50px
+    opacity: 50%;
 }
 
-.topbar a button{
-    font-size: 32px;
-    padding: 16 32px;
-    background-color: #1A57FF;
-    color: whitesmoke;
-    border: none;
+.info___filter{
+    font-size: 24px;
+    font-weight: bold;
+    color: #1A57FF;
+    padding: 10px;
+    border: 3px solid #1A57FF;
     border-radius: 16px;
+    width: 200px;
+    text-align: center;
+}
+
+.info___filter:hover{
+    color: whitesmoke;
+    background-color: #1A57FF;
 }
 
 .list{
@@ -26,27 +34,31 @@
     gap: 50px;
 }
 
-.list table{
+.list___table{
     width: 100%;
 }
 
-.list table caption{
+.list___table-caption{
     color: #1A57FF;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.list table tr td{
+.list___table-cell{
     border: 1px solid black;
     padding: 5px;
     text-align: center;
 }
 
-.list table tr td a{
+.list___table-cell-link---not-active{
     color: black;
 }
 
-.active-link:hover{
+.list___table-cell-link---active{
+    color: black;
+}
+
+.list___table-cell-link---active:hover{
     color: #1A57FF;
 }

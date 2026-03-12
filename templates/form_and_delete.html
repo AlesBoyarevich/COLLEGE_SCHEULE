@@ -2,24 +2,23 @@
 {% load static %}
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/form.css' %}">
-    <link rel="stylesheet" href="{% static 'css/groups/form.css' %}">
 {% endblock %}
 {% block main %}
 <main>
-    <h1 class="form-title">{{ headline }}<br><span class="form-subhadline">of {{ object_name }}</span></h1>
+    <h1 class="headline">{{ headline }}<br><span class="subhadline">{{ subheadline }}</span></h1>
     <h2></h2>
     <form class="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="form-field">
+        <div class="form___field">
             <span style="color: red;">{{ field.errors }}</span>
-            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <label class="form___field-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
         </div>
         {% endfor %}
-        <div class="form-button_block">
-            <a class="form-delete" href="{{ delete_url }}">Delete</a>
-            <button class="form-submit" type="submit">submit</button>
+        <div class="form___button-block">
+            <a class="form___submit-delete" href="{{ delete_url }}">Delete</a>
+            <button class="form___submit-button form___submit" type="submit">submit</button>
         </div>
     </form>
 </main>

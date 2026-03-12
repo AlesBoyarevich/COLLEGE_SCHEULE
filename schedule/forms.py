@@ -15,16 +15,19 @@ class TeacherCreateForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'form-name',
+                'class': 'form___field-name',
+                'placeholder': 'Enter a name, for example: Olga'
             }),
             'lastname': forms.TextInput(attrs={
-                'class': 'form-lastname'
+                'class': 'form___field-name',
+                'placeholder': 'Enter a last name, for example: Krutko'
             }),
             'surname': forms.TextInput(attrs={
-                'class': 'form-surname'
+                'class': 'form___field-name',
+                'placeholder': 'Enter a surname, for example: Vladimirovna'
             }),
             "image": forms.FileInput(attrs={
-                'class': 'form-file'
+                'class': 'form___field-file',
             }),
         }
 
@@ -37,7 +40,8 @@ class SubjectCreateForm(forms.ModelForm):
         }
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-name'
+                'class': 'form___field-name',
+                'placeholder': 'Enter a title, for example: Math'
             })
         }
 
@@ -50,7 +54,8 @@ class GroupCreateForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'form-name'
+                'class': 'form___field-name',
+                'placeholder': 'Enter a name (on any language and registr), for example: 5K9791 or 2к9394'
             })
         }
 
@@ -68,18 +73,18 @@ class ScheduleCreateForm(forms.ModelForm):
         }
         widgets = {
             'group': forms.Select(attrs={
-                'class': 'form-select'
+                'class': 'form___field-select',
             }),
             'subject': forms.Select(attrs={
-                'class': 'form-select'
+                'class': 'form___field-select'
             }),
             'teacher': forms.Select(attrs={
-                'class': 'form-select'
+                'class': 'form___field-select'
             }),
             'day': forms.Select(attrs={
-                'class': 'form-select'
+                'class': 'form___field-select'
             }),
             'time': forms.Select(attrs={
-                'class': 'form-select'
+                'class': 'form___field-select'
             })
         }

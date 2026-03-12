@@ -16,10 +16,15 @@ class BaseMixin:
     active:str = 'not set'
     breadcramps:dict[str:str] = {'not set': ...}
 
+    headline = 'Headline not set'
+    subheadline = ''
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active'] = self.active
         context['breadcramps'] = copy(self.breadcramps)
+        context['headline'] = self.headline
+        context['subheadline'] = self.subheadline
         return context
     
 

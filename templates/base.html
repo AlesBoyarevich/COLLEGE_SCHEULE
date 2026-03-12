@@ -12,58 +12,58 @@
         <title>Main</title>
     </head>
     <body>
-        <header>
-            <nav class="menu-links">
-                <li class="menu-links-logo"><img src="{% static 'img/logo.png' %}" alt=""></li>
-                <a href="{% url 'schedule' %}"><li class="menu-links-link {% active 'schedule' %}">SCHEDULE</li></a>
-                <a href="{% url 'teachers' %}"><li class="menu-links-link {% active 'teachers' %}">TEACHERS</li></a>
-                <a href="{% url 'groups' %}"><li class="menu-links-link {% active 'groups' %}">GROUPS</li></a>
-                <a href="{% url 'subjects' %}"><li class="menu-links-link {% active 'subjects' %}">SUBJECTS</li></a>
+        <header class="header">
+            <nav class="header___menu-links">
+                <li class="header___menu-logo"><img class="header___menu-logo-image" src="{% static 'img/logo.png' %}" alt=""></li>
+                <a href="{% url 'schedule' %}"><li class="header___menu-link {% active 'schedule' %}">SCHEDULE</li></a>
+                <a href="{% url 'teachers' %}"><li class="header___menu-link {% active 'teachers' %}">TEACHERS</li></a>
+                <a href="{% url 'groups' %}"><li class="header___menu-link {% active 'groups' %}">GROUPS</li></a>
+                <a href="{% url 'subjects' %}"><li class="header___menu-link {% active 'subjects' %}">SUBJECTS</li></a>
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'logout' %}?next={{ request.get_full_path }}"><li class="menu-links-link {% active 'account' %}">LOG OUT</li></a>
+                <a href="{% url 'logout' %}?next={{ request.get_full_path }}"><li class="header___menu-link {% active 'account' %}">LOG OUT</li></a>
                 {% else %}
-                <a href="{% url 'login' %}?next={{ request.get_full_path }}"><li class="menu-links-link {% active 'account' %}">LOG IN</li></a>
+                <a href="{% url 'login' %}?next={{ request.get_full_path }}"><li class="header___menu-link {% active 'account' %}">LOG IN</li></a>
                 {% endif %}
-                <li class="menu-links-contact">
+                <li class="header___menu-contact-info">
                     <span>{{ email }}</span>
                     <hr>
                     <span>{{ phone }}</span>
                 </li>
             </nav>
             <hr>
-            <nav class="menu-breadcramps">
+            <nav class="header___breadcramps">
                 {% for name, path in breadcramps.items %}
-                <a href="{{ path }}">{{ name }}</a>
+                <a class="header___breadcramps-text header___breadcramps-link" href="{{ path }}">{{ name }}</a>
                 {% if not forloop.last %}
-                <span>></span>
+                <span class="header___breadcramps-text">></span>
                 {% endif %}
                 {% endfor %}
             </nav>
         </header>
         {% block main %}{% endblock %}
-        <footer style="background-image: url('{% static 'img/Office-Open-Space(3).png' %}');">
-            <div class="footer-description">
-                <span>Minsk Radiochecnik Collage</span>
+        <footer class="footer" style="background-image: url('{% static 'img/Office-Open-Space(3).png' %}');">
+            <div class="footer___description">
+                <span class="footer___description-title">Minsk Radiochecnik Collage</span>
                 <hr>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas dignissimos quidem rem impedit amet magni accusantium sunt ea tenetur. Cum mollitia ad nihil quam, nisi ullam vel quos porro tempora saepe! Facilis ut non quos veniam reprehenderit temporibus hic est nulla, quia eaque accusantium? Cupiditate molestiae ipsam repellat deserunt voluptas.</p>
+                <p class="footer___description-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas dignissimos quidem rem impedit amet magni accusantium sunt ea tenetur. Cum mollitia ad nihil quam, nisi ullam vel quos porro tempora saepe! Facilis ut non quos veniam reprehenderit temporibus hic est nulla, quia eaque accusantium? Cupiditate molestiae ipsam repellat deserunt voluptas.</p>
             </div>
-            <div class="footer-links">
-                <div class="footer-sitelinks">
-                    <a href="{% url 'schedule' %}"><div>SCHEDULE</div></a>
-                    <a href="{% url 'teachers' %}"><div>TEACHERS</div></a>
-                    <a href="{% url 'groups' %}"><div>GROUPS</div></a>
-                    <a href="{% url 'subjects' %}"><div>SUBJECTS</div></a>
+            <div class="footer___links">
+                <div class="footer___nav">
+                    <a class="footer___nav-link" href="{% url 'schedule' %}"><div class="footer___nav-button">SCHEDULE</div></a>
+                    <a class="footer___nav-link" href="{% url 'teachers' %}"><div class="footer___nav-button">TEACHERS</div></a>
+                    <a class="footer___nav-link" href="{% url 'groups' %}"><div class="footer___nav-button">GROUPS</div></a>
+                    <a class="footer___nav-link" href="{% url 'subjects' %}"><div class="footer___nav-button">SUBJECTS</div></a>
                 </div>
                 <hr>
-                <div class="footer-medialinks">
-                    <a href="{{ social_telegram }}"><img src="{% static 'img/telegram.png' %}" alt=""></a>
-                    <a href="{{ social_instagram }}"><img src="{% static 'img/social-media.png' %}" alt=""></a>
-                    <a href="{{ social_youtube }}"><img src="{% static 'img/youtube.png' %}" alt=""></a>
-                    <a href="{{ social_wk }}"><img src="{% static 'img/vkontakte.png' %}" alt=""></a>
+                <div class="footer___media">
+                    <a href="{{ social_telegram }}"><img  class="footer___media-image" src="{% static 'img/telegram.png' %}" alt=""></a>
+                    <a href="{{ social_instagram }}"><img class="footer___media-image" src="{% static 'img/social-media.png' %}" alt=""></a>
+                    <a href="{{ social_youtube }}"><img class="footer___media-image" src="{% static 'img/youtube.png' %}" alt=""></a>
+                    <a href="{{ social_wk }}"><img class="footer___media-image" src="{% static 'img/vkontakte.png' %}" alt=""></a>
                 </div>
                 <hr>
-                <div class="footer-license">
-                    <span>{{ license }}</span>
+                <div class="footer___license">
+                    <span class="footer___license-text">{{ license }}</span>
                 </div>
             </div>
         </footer>

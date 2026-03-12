@@ -1,4 +1,4 @@
-header{
+.header{
     color: whitesmoke;
     background-color: #003DE6;
 
@@ -7,7 +7,7 @@ header{
     z-index: 100;
 }
 
-.menu-links
+.header___menu-links
 {
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@ header{
     font-weight: bold;
 }
 
-.menu-links-link
+.header___menu-link
 {
     height: auto;
     width: auto;
@@ -27,18 +27,18 @@ header{
     padding-right: 25px;
 }
 
-.menu-links-link:hover
+.header___menu-link:hover
 {
     color: white;
     background-color: #1A57FF;
 }
 
-.menu-links-link-active{
+.header___menu-link---active{
     color: white;
     background-color: #1A57FF;
 }
 
-.menu-links-contact
+.header___menu-contact-info
 {
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ header{
     font-size: 18px;
 }
 
-.menu-links-logo
+.header___menu-logo
 {
     margin-left: 25px;
     margin-right: 25px;
@@ -63,14 +63,13 @@ header{
     
 }
 
-.menu-links-logo img
+.header___menu-logo-image
 {
     height: 60px;
     width: auto;
 }
 
-.menu-breadcramps{
-    color: whitesmoke;
+.header___breadcramps{
     background-color: #0030B3;
     
     padding: 5px 0;
@@ -80,11 +79,10 @@ header{
     gap: 5px;
 }
 
-.menu-breadcramps *{
+.header___breadcramps-text{
     color: whitesmoke;
 }
 
-.menu-breadcramps a:hover{
+.header___breadcramps-link:hover{
     text-decoration: underline;
 }
-
