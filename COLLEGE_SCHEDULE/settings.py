@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
 from django.urls import reverse_lazy
 from django.core.management.utils import get_random_secret_key
+from .secrets import TOKEN
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,15 +22,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = None
+# 'django-insecure-6=vu%n0fe5*p+#8a0svc!f=zg8+(uzhh5skjq4ba#zf5gq+!2%'
 
-if not SECRET_KEY:
-    SECRET_KEY = get_random_secret_key()
+lines = []
+token_line = None
+print(TOKEN)
+if not TOKEN:
+    with open(BASE_DIR.__str__() + '\\COLLEGE_SCHEDULE\\secrets.py', 'r') as f:
+        i = 0
+        lines = f.readlines()
+        while i < len(lines):
+            if lines[i].find('TOKEN') > -1:
+                token_line = i
+                break
+            i += 1
+        lines[token_line] = 'TOKEN=\'' + get_random_secret_key().__str__() + '\''
+    with open(BASE_DIR.__str__() + '\\COLLEGE_SCHEDULE\\secrets.py', 'w') as f:
+        f.writelines(lines)
+
+SECRET_KEY = TOKEN
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
